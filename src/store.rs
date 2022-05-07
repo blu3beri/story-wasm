@@ -3,13 +3,6 @@ use crate::backend::{text::TextBackend, Backend, BackendExtended, BackendOptions
 use crate::error::*;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen(typescript_custom_section)]
-const IBACKEND_OPTIONS: &'static str = r#"
-interface BackendOptions {
-    path?: string
-}
-"#;
-
 #[wasm_bindgen]
 pub struct Store {
     backend: Backend,
