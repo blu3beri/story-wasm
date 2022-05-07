@@ -1,4 +1,4 @@
-import { Store, Backend } from "story"
+import { Store, Backend, BackendOptions } from "story"
 
-const store = Store.init(Backend.Text)
-console.log(store.get_backend())
+const store = Store.new(Backend.Text, {})
+console.log(store.get("foop"))
