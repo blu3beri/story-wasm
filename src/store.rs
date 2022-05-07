@@ -24,9 +24,8 @@ impl Store {
     }
 
     pub fn get(&self, key: String) -> Result<String> {
-        let backend = self.get_backend();
-
-        Err(Error::InvalidBackendOptions("text".to_string(), "foo, bar".to_string()).into())
+        let backend = self.get_backend()?;
+        Ok(String::from("goo"))
     }
 
     pub fn post(&self, key: String, value: String) {

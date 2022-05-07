@@ -25,7 +25,7 @@ pub struct BackendOptions {
 }
 
 #[wasm_bindgen]
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub enum Backend {
     Text,
 }

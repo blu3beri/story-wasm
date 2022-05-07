@@ -3,11 +3,12 @@ use crate::error::*;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
+#[derive(Debug)]
 pub struct TextBackend;
 
 impl BackendExtended for TextBackend {
     fn new(options: &BackendOptions) -> Result<Self> {
-        Ok(TextBackend)
+        Err(Error::InvalidBackendOptions("Text", vec!["foo", "bar"]).into())
     }
 
     fn get(&self, key: impl AsRef<str>) -> Result<String> {
