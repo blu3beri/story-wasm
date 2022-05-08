@@ -8,7 +8,8 @@ pub struct TextBackend;
 
 impl BackendExtended for TextBackend {
     fn new(options: &BackendOptions) -> Result<Self> {
-        Err(Error::InvalidBackendOptions("Text", vec!["foo", "bar"]).into())
+        assert_options!(options, path);
+        Ok(TextBackend)
     }
 
     fn get(&self, key: impl AsRef<str>) -> Result<String> {
