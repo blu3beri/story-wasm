@@ -1,6 +1,6 @@
 import { Store, Backend } from "story"
 
-const store = Store.new(Backend.Simple, {})
+const store = Store.new(Backend.BTreeMap, {})
 
 store.put("foo", "1")
 store.put("bar", "2")

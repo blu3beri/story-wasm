@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use wasm_bindgen::prelude::*;
 
-pub mod simple;
+pub mod btreemap;
 
 #[wasm_bindgen(typescript_custom_section)]
 const IBACKEND_OPTIONS: &'static str = r#"
@@ -28,20 +28,20 @@ pub struct BackendOptions {
 #[wasm_bindgen]
 #[derive(Clone, Copy, Debug)]
 pub enum Backend {
-    Simple,
+    BTreeMap,
 }
 
 impl From<Backend> for String {
     fn from(backend: Backend) -> Self {
         match backend {
-            Backend::Simple => String::from("simple"),
+            Backend::BTreeMap => String::from("btreemap"),
         }
     }
 }
 
 impl Default for Backend {
     fn default() -> Self {
-        Backend::Simple
+        Backend::BTreeMap
     }
 }
 

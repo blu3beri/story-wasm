@@ -1,5 +1,5 @@
 use crate::backend::IBackendOptions;
-use crate::backend::{simple::SimpleBackend, Backend, BackendExtended, BackendOptions};
+use crate::backend::{btreemap::BTreeMapBackend, Backend, BackendExtended, BackendOptions};
 use crate::error::*;
 use wasm_bindgen::prelude::*;
 
@@ -21,7 +21,7 @@ impl Store {
 
     fn get_backend(&self) -> Result<impl BackendExtended> {
         match self.backend {
-            Backend::Simple => SimpleBackend::new(&self.options),
+            Backend::BTreeMap => BTreeMapBackend::new(&self.options),
         }
     }
 

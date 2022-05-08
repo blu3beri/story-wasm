@@ -1,3 +1,5 @@
+#![allow(non_upper_case_globals)]
+
 extern crate wasm_bindgen;
 
 #[macro_use]
