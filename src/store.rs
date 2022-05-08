@@ -1,42 +1,42 @@
 use crate::backend::IBackendOptions;
-use crate::backend::{text::TextBackend, Backend, BackendExtended, BackendOptions};
+use crate::backend::{simple::SimpleBackend, Backend, BackendExtended, BackendOptions};
 use crate::error::*;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub struct Store {
     backend: Backend,
-    options: BackendOptions,
+    options: Option<BackendOptions>,
 }
 
 #[wasm_bindgen]
 impl Store {
-    pub fn new(backend: Backend, options: IBackendOptions) -> Self {
-        let options: BackendOptions = options.into_serde().unwrap();
-        log!("{:?}", options);
+    pub fn new(backend: Backend, options: Option<IBackendOptions>) -> Self {
+        let options: Option<BackendOptions> = match options {
+            Some(o) => o.into_serde().unwrap(),
+            None => None,
+        };
         Self { backend, options }
     }
 
     fn get_backend(&self) -> Result<impl BackendExtended> {
         match self.backend {
-            Backend::Text => TextBackend::new(&self.options),
+            Backend::Simple => SimpleBackend::new(&self.options),
         }
     }
 
-    pub fn get(&self, key: String) -> Result<String> {
+    pub fn get(&self, key: String) -> Result<Option<String>> {
         let backend = self.get_backend()?;
-        Ok(String::from("goo"))
+        backend.get(key)
     }
 
-    pub fn post(&self, key: String, value: String) {
-        todo!()
+    pub fn put(&self, key: String, value: String) -> Result<Option<String>> {
+        let backend = self.get_backend()?;
+        backend.put(key, value)
     }
 
-    pub fn put(&self, key: String, value: String) -> String {
-        todo!()
-    }
-
-    pub fn delete(&self, key: String, value: String) -> String {
-        todo!()
+    pub fn delete(&self, key: String) -> Result<Option<String>> {
+        let backend = self.get_backend()?;
+        backend.delete(key)
     }
 }

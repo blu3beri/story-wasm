@@ -11,3 +11,4 @@ serde = { version = "1.0", features = ["derive"] }
 wasm-bindgen = { version = "0.2", features = ["serde-serialize"] }
 js-sys = "0.3.57"
 console_error_panic_hook = "0.1.7"
+lazy_static = "1.4.0"

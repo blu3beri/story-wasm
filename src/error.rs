@@ -3,13 +3,20 @@ use wasm_bindgen::prelude::*;
 
 pub enum Error {
     InvalidBackendOptions(&'static str, Vec<&'static str>),
-    Test,
+    UnableToOpenFile(String),
+    PoisonedLock(String),
 }
 
 impl From<Error> for JsValue {
     fn from(error: Error) -> Self {
         match error {
-            Error::Test => JSError::new("foo").into(),
+            Error::UnableToOpenFile(reason) => {
+                JSError::new(format!("Unable to open file. Reason: {}", reason).as_str()).into()
+            }
+            Error::PoisonedLock(reason) => JSError::new(
+                format!("Read / Write lock has been poisoned. Reason: {}", reason).as_str(),
+            )
+            .into(),
             Error::InvalidBackendOptions(backend, missing) => JSError::new(
                 format!(
                     "Backend '{}' requires the following properties: {}",
